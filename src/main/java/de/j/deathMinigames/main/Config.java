@@ -324,7 +324,7 @@ public class Config {
         return databaseConnectionInfo;
     }
 
-    public void setServerName(String serverName) {
+    public synchronized void setServerName(String serverName) {
         if(!Main.getPlugin().getConfig().contains("Tablist.ServerName")) {
             Main.getPlugin().getConfig().set("Tablist.ServerName", serverName);
             Main.getPlugin().saveConfig();
@@ -345,7 +345,7 @@ public class Config {
         }
     }
 
-    public void setHostetBy(String serverName) {
+    public synchronized void setHostetBy(String serverName) {
         if(!Main.getPlugin().getConfig().contains("Tablist.HostetBy") || !Main.getPlugin().getConfig().getString("Tablist.HostetBy").equals(serverName)) {
             Main.getPlugin().getConfig().set("Tablist.HostetBy", serverName);
             Main.getPlugin().saveConfig();

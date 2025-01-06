@@ -7,6 +7,7 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -17,10 +18,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class AnvilUI implements InventoryHolder {
-    private final Location loc = new Location(Bukkit.getWorld("world"), ThreadLocalRandom.current().nextInt(0, 1000), ThreadLocalRandom.current().nextInt(0, 1000), ThreadLocalRandom.current().nextInt(0, 1000));
+    private Location loc = null;
     private final ItemStack firstSlot = new ItemStack(Material.RED_CONCRETE);
 
     public AnvilUI(MainMenu.AnvilUIs title) {
+        if(title == null) return;
+        createUniqueLocation();
         ItemMeta paperMeta = firstSlot.getItemMeta();
         switch (title) {
             case SET_HOST_NAME:
@@ -31,8 +34,11 @@ public class AnvilUI implements InventoryHolder {
                 if(Config.getInstance().getServerName() != null) paperMeta.displayName(Component.text(Config.getInstance().getServerName()));
                 else paperMeta.displayName(Component.text("kein Name gesetzt / no name set"));
                 break;
-            default:
+            case DEFAULT:
                 paperMeta.displayName(Component.text(""));
+                break;
+            default:
+                throw new IllegalArgumentException("Unexpected AnvilUI title: " + title);
         }
         firstSlot.setItemMeta(paperMeta);
     }
@@ -46,6 +52,19 @@ public class AnvilUI implements InventoryHolder {
     @Override
     public @NotNull Inventory getInventory() {
         return null;
+    }
+
+    /**
+     * Random location used as a unique identifier for the anvil UI.
+     * This prevents conflicts between multiple anvil UIs.
+     */
+    private void createUniqueLocation() {
+        World world = Bukkit.getWorld("world");
+        if(world == null) throw new IllegalStateException("world `world´ could not be found");
+        loc = new Location(world,
+                ThreadLocalRandom.current().nextInt(0, 1000),
+                ThreadLocalRandom.current().nextInt(0, 1000),
+                ThreadLocalRandom.current().nextInt(0, 1000));
     }
 
     public boolean compareLocIDTo(Location loc) {
