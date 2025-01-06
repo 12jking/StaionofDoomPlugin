@@ -81,7 +81,8 @@
       "newRecord": "Du hast deine alte Rekordzeit um %ss verbessert!",
       "cmdUsageLength1": "Dein Command hat nicht geklappt, versuche /game <dein Command>",
       "somethingWentWrong": "Etwas ist schief gelaufen",
-      "invalidDifficulty": "Die Schwierigkeit muss zwischen 0 und 10 sein"
+      "invalidDifficulty": "Die Schwierigkeit muss zwischen 0 und 10 sein",
+      "anvilOutput": "klicke hier um zu bestätigen"
     }
   ],
   "en-US": [
@@ -166,7 +167,8 @@
       "newRecord": "You beat your old record by %ss!",
       "cmdUsageLength1": "Your command did not work, try /game <your command>",
       "somethingWentWrong": "Something went wrong",
-      "invalidDifficulty": "The difficulty has to be between 0 and 10"
+      "invalidDifficulty": "The difficulty has to be between 0 and 10",
+      "anvilOutput": "Click here to accept"
     }
   ]
 }

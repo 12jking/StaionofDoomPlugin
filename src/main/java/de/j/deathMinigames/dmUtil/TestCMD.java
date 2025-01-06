@@ -1,5 +1,6 @@
 package de.j.deathMinigames.dmUtil;
 
+import de.j.stationofdoom.util.Tablist;
 import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import org.bukkit.command.CommandSender;
@@ -35,5 +36,6 @@ public class TestCMD implements BasicCommand {
     public void execute(@NotNull CommandSourceStack stack, @NotNull String[] args) {
         Player player = (Player) stack.getSender();
         player.sendMessage("test");
+        Tablist.setHostetBy(args[0]);
     }
 }

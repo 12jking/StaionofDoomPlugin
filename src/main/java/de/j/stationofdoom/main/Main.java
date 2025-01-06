@@ -115,6 +115,7 @@ public final class Main extends JavaPlugin {
         pluginManager.registerEvents(new InventoryListener(), this);
         pluginManager.registerEvents(new InitWaitingListLocationOnJoin(), this);
         pluginManager.registerEvents(new LeaveListener(), this);
+        pluginManager.registerEvents(new AnvilListener(), this);
 
         //CustomEnchants.register(); -> see custom enchants class for more info
 

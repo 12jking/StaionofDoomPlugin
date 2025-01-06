@@ -1,6 +1,8 @@
 package de.j.deathMinigames.main;
 
 import de.j.deathMinigames.database.PlayerDataDatabase;
+import de.j.stationofdoom.listener.PlayerJoin;
+import de.j.stationofdoom.util.Tablist;
 import org.bukkit.Location;
 
 import de.j.stationofdoom.main.Main;
@@ -115,6 +117,15 @@ public class Config {
             config.set("Database.schema", "public");
             Main.getPlugin().saveConfig();
         }
+        //Tablist
+        if(config.contains("Tablist")) {
+            if(config.contains("Tablist.ServerName")) {
+                Tablist.setServerName(config.getString("Tablist.ServerName"));
+            }
+            if(config.contains("Tablist.HostetBy")) {
+                Tablist.setHostetBy(config.getString("Tablist.HostetBy"));
+            }
+        }
     }
 
     public void cloneWaitingListLocationToPlugin(World world) {
@@ -195,7 +206,6 @@ public class Config {
      * @param time The time limit for minigame decision in seconds to be set.
      */
     public synchronized void setTimeToDecideWhenRespawning(int time) {
-        
         configTimeToDecideWhenRespawning = time;
         Main.getPlugin().getConfig().set("TimeToDecideWhenRespawning", time);
         Main.getPlugin().saveConfig();
@@ -312,5 +322,43 @@ public class Config {
             databaseConnectionInfo.put(field, value);
         }
         return databaseConnectionInfo;
+    }
+
+    public void setServerName(String serverName) {
+        if(!Main.getPlugin().getConfig().contains("Tablist.ServerName")) {
+            Main.getPlugin().getConfig().set("Tablist.ServerName", serverName);
+            Main.getPlugin().saveConfig();
+        }
+        else if(!Main.getPlugin().getConfig().getString("Tablist.ServerName").equals(serverName)) {
+            Main.getPlugin().getConfig().set("Tablist.ServerName", serverName);
+            Main.getPlugin().saveConfig();
+        }
+    }
+
+    public String getServerName() {
+        if(Main.getPlugin().getConfig().contains("Tablist.ServerName")) {
+            return Main.getPlugin().getConfig().getString("Tablist.ServerName");
+        }
+        else {
+            Main.getMainLogger().warning("ServerName not found in config!");
+            return null;
+        }
+    }
+
+    public void setHostetBy(String serverName) {
+        if(!Main.getPlugin().getConfig().contains("Tablist.HostetBy") || !Main.getPlugin().getConfig().getString("Tablist.HostetBy").equals(serverName)) {
+            Main.getPlugin().getConfig().set("Tablist.HostetBy", serverName);
+            Main.getPlugin().saveConfig();
+        }
+    }
+
+    public String getHostetBy() {
+        if(Main.getPlugin().getConfig().contains("Tablist.HostetBy")) {
+            return Main.getPlugin().getConfig().getString("Tablist.HostetBy");
+        }
+        else {
+            Main.getMainLogger().warning("HostetBy not found in config!");
+            return null;
+        }
     }
 }

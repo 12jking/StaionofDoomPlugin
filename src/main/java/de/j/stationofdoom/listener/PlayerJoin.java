@@ -12,6 +12,7 @@ import io.papermc.paper.threadedregions.scheduler.AsyncScheduler;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -70,14 +71,26 @@ public class PlayerJoin implements Listener {
         AtomicInteger phase = new AtomicInteger();
         asyncScheduler.runAtFixedRate(Main.getPlugin(), scheduledTask -> {
             int ping = player.getPing();
-            tablist.tabTPS(player, mm.deserialize("     <dark_blue>StationOfDoom</dark_blue>     <newline><newline>"),
-                    mm.deserialize("<newline><newline>     <red>Hosted by </red><rainbow:" + phase + ">LuckyProgrammer</rainbow>     <newline> <red>Plugin by </red><rainbow:!" + (phase.get() + 2) + ">LuckyProgrammer</rainbow>")
-                            .append(Component.text(String.format("\nTPS:  %s;  %s;  %s", (int) Main.getPlugin().getServer().getTPS()[0], (int) Main.getPlugin().getServer().getTPS()[1], (int) Main.getPlugin().getServer().getTPS()[2]), NamedTextColor.LIGHT_PURPLE))
-                            .append(Component.text("\n Ping: ")
-                                    .append(Component.text(String.valueOf(ping))
-                                            .color(ping > 30 ? NamedTextColor.RED : NamedTextColor.GREEN)))
-                            .append(Component.text("\n")
-                                    .append(tablist.getTimeComponent(player))));
+            if(Tablist.getHostetBy() == null) {
+                tablist.tabTPS(player, mm.deserialize("     <dark_blue><1></dark_blue>     <newline><newline>", Placeholder.component("1", Component.text(Tablist.getServerName()))),
+                        mm.deserialize("<newline> <red>Plugin by </red><rainbow:!" + (phase.get() + 2) + ">LuckyProgrammer</rainbow>")
+                                .append(Component.text(String.format("\nTPS:  %s;  %s;  %s", (int) Main.getPlugin().getServer().getTPS()[0], (int) Main.getPlugin().getServer().getTPS()[1], (int) Main.getPlugin().getServer().getTPS()[2]), NamedTextColor.LIGHT_PURPLE))
+                                .append(Component.text("\n Ping: ")
+                                        .append(Component.text(String.valueOf(ping))
+                                                .color(ping > 30 ? NamedTextColor.RED : NamedTextColor.GREEN)))
+                                .append(Component.text("\n")
+                                        .append(tablist.getTimeComponent(player))));
+            }
+            else {
+                tablist.tabTPS(player, mm.deserialize("     <dark_blue><1></dark_blue>     <newline><newline>", Placeholder.component("1", Component.text(Tablist.getServerName()))),
+                        mm.deserialize("<newline><newline>     <red>Hosted by </red><rainbow:" + phase + "><2></rainbow>     <newline> <red>Plugin by </red><rainbow:!" + (phase.get() + 2) + ">LuckyProgrammer</rainbow>", Placeholder.component("2", Component.text(Tablist.getHostetBy())))
+                                .append(Component.text(String.format("\nTPS:  %s;  %s;  %s", (int) Main.getPlugin().getServer().getTPS()[0], (int) Main.getPlugin().getServer().getTPS()[1], (int) Main.getPlugin().getServer().getTPS()[2]), NamedTextColor.LIGHT_PURPLE))
+                                .append(Component.text("\n Ping: ")
+                                        .append(Component.text(String.valueOf(ping))
+                                                .color(ping > 30 ? NamedTextColor.RED : NamedTextColor.GREEN)))
+                                .append(Component.text("\n")
+                                        .append(tablist.getTimeComponent(player))));
+            }
             phase.getAndIncrement();
             if (phase.get() >= 14) {
                 phase.set(0);

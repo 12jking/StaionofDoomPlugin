@@ -1,7 +1,9 @@
 package de.j.deathMinigames.listeners;
 
+import de.j.deathMinigames.dmUtil.DmUtil;
 import de.j.deathMinigames.main.HandlePlayers;
 import de.j.deathMinigames.main.PlayerData;
+import de.j.deathMinigames.settings.AnvilUI;
 import de.j.deathMinigames.settings.MainMenu.InventoryMenus;
 import de.j.stationofdoom.util.translations.TranslationFactory;
 import net.kyori.adventure.text.Component;
@@ -13,12 +15,16 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.inventory.PrepareAnvilEvent;
+import org.bukkit.inventory.*;
 import de.j.deathMinigames.main.Config;
 import de.j.stationofdoom.main.Main;
 import de.j.deathMinigames.minigames.Minigame;
 import de.j.deathMinigames.settings.GUI;
 import de.j.deathMinigames.settings.MainMenu;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.view.AnvilView;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -37,7 +43,6 @@ public class InventoryListener implements Listener {
         MainMenu mainMenu = new MainMenu();
         InventoryHolder invHolder = event.getInventory().getHolder();
         Minigame minigame = Minigame.getInstance();
-
         UUID ID;
         int slot = event.getSlot();
         if(slot < 0) {
@@ -244,6 +249,12 @@ public class InventoryListener implements Listener {
             case 3:
                 MainMenu.getDifficulty().addBackButton(player);
                 MainMenu.getDifficulty().showInventory(player);
+                break;
+            case 4:
+                MainMenu.getSetHost().showInventory(player);
+                break;
+            case 5:
+                MainMenu.getSetServerName().showInventory(player);
                 break;
         }
     }
