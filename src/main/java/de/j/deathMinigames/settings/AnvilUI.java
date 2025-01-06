@@ -49,7 +49,6 @@ public class AnvilUI implements InventoryHolder {
     }
 
     public boolean compareLocIDTo(Location loc) {
-        if(loc.getBlockX() == this.loc.getBlockX() && loc.getBlockZ() == this.loc.getBlockZ()) return true;
-        else return false;
+        return loc.getBlockX() == this.loc.getBlockX() && loc.getBlockZ() == this.loc.getBlockZ();
     }
 }
