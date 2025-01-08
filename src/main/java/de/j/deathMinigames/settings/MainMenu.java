@@ -105,14 +105,7 @@ public class MainMenu implements InventoryHolder {
      */
     public void showPlayerSettings(Player player) {
         addSubmenus();
-        tellCurrentPlayerToUIs(player);
         showPlayerInv(player);
-    }
-
-    private void tellCurrentPlayerToUIs(Player player) {
-        setHost.setPlayerForTranslations(player);
-        setServerName.setPlayerForTranslations(player);
-        Main.getMainLogger().info("Told UIs current player: " + player.getName());
     }
 
     /**

@@ -1,14 +1,11 @@
 package de.j.deathMinigames.main;
 
-import de.j.deathMinigames.database.PlayerDataDatabase;
-import de.j.stationofdoom.listener.PlayerJoin;
 import de.j.stationofdoom.util.Tablist;
 import org.bukkit.Location;
 
 import de.j.stationofdoom.main.Main;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.util.*;
 
@@ -345,14 +342,14 @@ public class Config {
         }
     }
 
-    public synchronized void setHostetBy(String serverName) {
+    public synchronized void setHostedBy(String serverName) {
         if(!Main.getPlugin().getConfig().contains("Tablist.HostetBy") || !Main.getPlugin().getConfig().getString("Tablist.HostetBy").equals(serverName)) {
             Main.getPlugin().getConfig().set("Tablist.HostetBy", serverName);
             Main.getPlugin().saveConfig();
         }
     }
 
-    public String getHostetBy() {
+    public String getHostedBy() {
         if(Main.getPlugin().getConfig().contains("Tablist.HostetBy")) {
             return Main.getPlugin().getConfig().getString("Tablist.HostetBy");
         }

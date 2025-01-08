@@ -65,25 +65,23 @@ public class AnvilListener implements Listener {
             if (loc == null) return;
             Player player = (Player) event.getWhoClicked();
             if(player == null) return;
+            if(event.getSlot() != 2) return;
             if (MainMenu.getSetHost().compareLocIDTo(loc)) {
                 event.setCancelled(true);
-                if(event.getSlot() == 2) {
-                    if (hostName == null) return;
-                    Tablist.setHostetBy(hostName);
-                    event.getView().close();
-                    DmUtil.getInstance().playSoundAtLocation(player.getLocation(), 0.5f, Sound.BLOCK_ANVIL_USE);
-                    player.sendMessage(Component.text("Host name: " + hostName).color(NamedTextColor.GOLD));
-                }
+                if (hostName == null) return;
+                Tablist.setHostetBy(hostName);
+                event.getView().close();
+                DmUtil.getInstance().playSoundAtLocation(player.getLocation(), 0.5f, Sound.BLOCK_ANVIL_USE);
+                player.sendMessage(Component.text("Host name: " + hostName).color(NamedTextColor.GOLD));
             } else if (MainMenu.getSetServerName().compareLocIDTo(loc)) {
                 event.setCancelled(true);
-                if(event.getSlot() == 2) {
-                    if (serverName == null) return;
-                    Tablist.setServerName(serverName);
-                    event.getView().close();
-                    DmUtil.getInstance().playSoundAtLocation(player.getLocation(), 0.5f, Sound.BLOCK_ANVIL_USE);
-                    player.sendMessage(Component.text("Server name: " + serverName).color(NamedTextColor.GOLD));
-                }
+                if (serverName == null) return;
+                Tablist.setServerName(serverName);
+                event.getView().close();
+                DmUtil.getInstance().playSoundAtLocation(player.getLocation(), 0.5f, Sound.BLOCK_ANVIL_USE);
+                player.sendMessage(Component.text("Server name: " + serverName).color(NamedTextColor.GOLD));
             }
+
         }
     }
 

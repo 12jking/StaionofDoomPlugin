@@ -176,8 +176,8 @@ public class Tablist {
 
     public static void setHostetBy(String hostetBy) {
         Tablist.hostetBy = hostetBy;
-        if(Config.getInstance().getHostetBy() == null || !Config.getInstance().getHostetBy().equals(hostetBy)) {
-            Config.getInstance().setHostetBy(hostetBy);
+        if(Config.getInstance().getHostedBy() == null || !Config.getInstance().getHostedBy().equals(hostetBy)) {
+            Config.getInstance().setHostedBy(hostetBy);
         }
     }
 

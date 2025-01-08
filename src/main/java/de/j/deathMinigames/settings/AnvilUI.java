@@ -25,15 +25,16 @@ public class AnvilUI implements InventoryHolder {
     private MainMenu.AnvilUIs title;
 
     public AnvilUI(MainMenu.AnvilUIs title) {
-        if(title == null) return;
+        if(title == null) throw new IllegalArgumentException("Title cannot be null");
         this.title = title;
         createUniqueLocation();
-        setInputMeta();
     }
 
     public void showInventory(Player playerToShowTheInvTo) {
-        if(playerToShowTheInvTo == null) return;
-        playerToShowTheInvTo.openAnvil(loc, true);
+        this.player = playerToShowTheInvTo;
+        if(player == null) return;
+        player.openAnvil(loc, true);
+        setInputMeta();
         player.getOpenInventory().getTopInventory().setItem(0, input);
     }
 
@@ -59,11 +60,6 @@ public class AnvilUI implements InventoryHolder {
         return loc.getBlockX() == this.loc.getBlockX() && loc.getBlockZ() == this.loc.getBlockZ();
     }
 
-    public void setPlayerForTranslations(Player player) {
-        this.player = player;
-        setInputMeta();
-    }
-
     private void setInputMeta() {
         ItemMeta inputMeta = input.getItemMeta();
         String inputItemName = null;
@@ -74,6 +70,7 @@ public class AnvilUI implements InventoryHolder {
             switch (title) {
                 case SET_HOST_NAME -> inputItemName = Tablist.getHostetBy();
                 case SET_SERVER_NAME -> inputItemName = Tablist.getServerName();
+                default -> throw new IllegalArgumentException("Title is not known");
             }
             if(inputItemName == null) {
                 inputMeta.displayName(Component.text(new TranslationFactory().getTranslation(player, "noNameSet")));
@@ -83,8 +80,5 @@ public class AnvilUI implements InventoryHolder {
             }
         }
         input.setItemMeta(inputMeta);
-        if(player != null) {
-            showInventory(player);
-        }
     }
 }
