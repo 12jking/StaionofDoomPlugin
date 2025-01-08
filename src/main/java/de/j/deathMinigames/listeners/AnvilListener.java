@@ -47,12 +47,12 @@ public class AnvilListener implements Listener {
         }
         String renameText = anvilView.getRenameText();
         if(MainMenu.getSetHost().compareLocIDTo(loc)) {
-            finishAnvilInvAfterOpening(event, player);
+            finishAnvilInvAfterOpening(event, player, hostName);
             if(renameText == null) return;
             hostName = renameText;
         }
         else if(MainMenu.getSetServerName().compareLocIDTo(loc)) {
-            finishAnvilInvAfterOpening(event, player);
+            finishAnvilInvAfterOpening(event, player, serverName);
             if(renameText == null) return;
             serverName = renameText;
         }
@@ -102,12 +102,13 @@ public class AnvilListener implements Listener {
         }
     }
 
-    private void finishAnvilInvAfterOpening(PrepareAnvilEvent event, Player player) {
+    private void finishAnvilInvAfterOpening(PrepareAnvilEvent event, Player player, String inputSlotTitle) {
         ItemStack output = new ItemStack(Material.GREEN_CONCRETE);
         ItemMeta outputItemMeta = output.getItemMeta();
         outputItemMeta.displayName(Component.text(tf.getTranslation(player, "anvilOutput")));
         output.setItemMeta(outputItemMeta);
         event.setResult(output);
+
         event.getView().setRepairCost(0);
     }
 }

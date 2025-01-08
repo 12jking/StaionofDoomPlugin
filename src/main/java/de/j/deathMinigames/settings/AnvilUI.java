@@ -2,6 +2,7 @@ package de.j.deathMinigames.settings;
 
 import de.j.deathMinigames.main.Config;
 import de.j.stationofdoom.main.Main;
+import de.j.stationofdoom.util.Tablist;
 import de.j.stationofdoom.util.translations.TranslationFactory;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -19,34 +20,21 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class AnvilUI implements InventoryHolder {
     private Location loc = null;
-    private final ItemStack firstSlot = new ItemStack(Material.RED_CONCRETE);
+    private ItemStack input = new ItemStack(Material.RED_CONCRETE);
+    Player player = null;
+    private MainMenu.AnvilUIs title;
 
     public AnvilUI(MainMenu.AnvilUIs title) {
         if(title == null) return;
+        this.title = title;
         createUniqueLocation();
-        ItemMeta paperMeta = firstSlot.getItemMeta();
-        switch (title) {
-            case SET_HOST_NAME:
-                if(Config.getInstance().getHostetBy() != null) paperMeta.displayName(Component.text(Config.getInstance().getHostetBy()));
-                else paperMeta.displayName(Component.text("kein Name gesetzt / no name set"));
-                break;
-            case SET_SERVER_NAME:
-                if(Config.getInstance().getServerName() != null) paperMeta.displayName(Component.text(Config.getInstance().getServerName()));
-                else paperMeta.displayName(Component.text("kein Name gesetzt / no name set"));
-                break;
-            case DEFAULT:
-                paperMeta.displayName(Component.text(""));
-                break;
-            default:
-                throw new IllegalArgumentException("Unexpected AnvilUI title: " + title);
-        }
-        firstSlot.setItemMeta(paperMeta);
+        setInputMeta();
     }
 
     public void showInventory(Player playerToShowTheInvTo) {
         if(playerToShowTheInvTo == null) return;
         playerToShowTheInvTo.openAnvil(loc, true);
-        playerToShowTheInvTo.getOpenInventory().getTopInventory().addItem(firstSlot);
+        player.getOpenInventory().getTopInventory().setItem(0, input);
     }
 
     @Override
@@ -69,5 +57,34 @@ public class AnvilUI implements InventoryHolder {
 
     public boolean compareLocIDTo(Location loc) {
         return loc.getBlockX() == this.loc.getBlockX() && loc.getBlockZ() == this.loc.getBlockZ();
+    }
+
+    public void setPlayerForTranslations(Player player) {
+        this.player = player;
+        setInputMeta();
+    }
+
+    private void setInputMeta() {
+        ItemMeta inputMeta = input.getItemMeta();
+        String inputItemName = null;
+        if(player == null) {
+            inputMeta.displayName(Component.text("default"));
+        }
+        else {
+            switch (title) {
+                case SET_HOST_NAME -> inputItemName = Tablist.getHostetBy();
+                case SET_SERVER_NAME -> inputItemName = Tablist.getServerName();
+            }
+            if(inputItemName == null) {
+                inputMeta.displayName(Component.text(new TranslationFactory().getTranslation(player, "noNameSet")));
+            }
+            else {
+                inputMeta.displayName(Component.text(inputItemName));
+            }
+        }
+        input.setItemMeta(inputMeta);
+        if(player != null) {
+            showInventory(player);
+        }
     }
 }
