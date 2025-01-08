@@ -17,7 +17,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.checkerframework.common.aliasing.qual.Unique;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -71,7 +70,7 @@ public class PlayerJoin implements Listener {
         AtomicInteger phase = new AtomicInteger();
         asyncScheduler.runAtFixedRate(Main.getPlugin(), scheduledTask -> {
             int ping = player.getPing();
-            if(Tablist.getHostetBy() == null) {
+            if(Tablist.getHostedBy() == null) {
                 tablist.tabTPS(player, mm.deserialize("     <dark_blue><1></dark_blue>     <newline><newline>", Placeholder.component("1", Component.text(Tablist.getServerName()))),
                         mm.deserialize("<newline> <red>Plugin by </red><rainbow:!" + (phase.get() + 2) + ">LuckyProgrammer</rainbow>")
                                 .append(Component.text(String.format("\nTPS:  %s;  %s;  %s", (int) Main.getPlugin().getServer().getTPS()[0], (int) Main.getPlugin().getServer().getTPS()[1], (int) Main.getPlugin().getServer().getTPS()[2]), NamedTextColor.LIGHT_PURPLE))
@@ -83,7 +82,7 @@ public class PlayerJoin implements Listener {
             }
             else {
                 tablist.tabTPS(player, mm.deserialize("     <dark_blue><1></dark_blue>     <newline><newline>", Placeholder.component("1", Component.text(Tablist.getServerName()))),
-                        mm.deserialize("<newline><newline>     <red>Hosted by </red><rainbow:" + phase + "><2></rainbow>     <newline> <red>Plugin by </red><rainbow:!" + (phase.get() + 2) + ">LuckyProgrammer</rainbow>", Placeholder.component("2", Component.text(Tablist.getHostetBy())))
+                        mm.deserialize("<newline><newline>     <red>Hosted by </red><rainbow:" + phase + "><2></rainbow>     <newline> <red>Plugin by </red><rainbow:!" + (phase.get() + 2) + ">LuckyProgrammer</rainbow>", Placeholder.component("2", Component.text(Tablist.getHostedBy())))
                                 .append(Component.text(String.format("\nTPS:  %s;  %s;  %s", (int) Main.getPlugin().getServer().getTPS()[0], (int) Main.getPlugin().getServer().getTPS()[1], (int) Main.getPlugin().getServer().getTPS()[2]), NamedTextColor.LIGHT_PURPLE))
                                 .append(Component.text("\n Ping: ")
                                         .append(Component.text(String.valueOf(ping))

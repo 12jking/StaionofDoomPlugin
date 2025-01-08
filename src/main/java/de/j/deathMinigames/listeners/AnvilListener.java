@@ -7,7 +7,6 @@ import de.j.stationofdoom.util.Tablist;
 import de.j.stationofdoom.util.translations.TranslationFactory;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -30,19 +29,18 @@ public class AnvilListener implements Listener {
 
     @EventHandler
     public void onAnvilPrepare(PrepareAnvilEvent event) {
-        Player player = (Player) event.getViewers().getFirst();
-        if(player == null) {
-            Main.getMainLogger().info("Anvil prepare event has no player");
+        if(!(event.getViewers().getFirst() instanceof Player player)) {
+            Main.getMainLogger().warning("Anvil prepare event has invalid viewer type");
             return;
         }
         Location loc = event.getInventory().getLocation();
         if(loc == null) {
-            Main.getMainLogger().info("Anvil prepare event has no location");
+            Main.getMainLogger().warning("Anvil prepare event has no location");
             return;
         }
         AnvilView anvilView = event.getView();
         if(anvilView == null) {
-            Main.getMainLogger().info("Anvil prepare event has no anvilView");
+            Main.getMainLogger().warning("Anvil prepare event has no anvilView");
             return;
         }
         String renameText = anvilView.getRenameText();
@@ -69,7 +67,7 @@ public class AnvilListener implements Listener {
             if (MainMenu.getSetHost().compareLocIDTo(loc)) {
                 event.setCancelled(true);
                 if (hostName == null) return;
-                Tablist.setHostetBy(hostName);
+                Tablist.setHostedBy(hostName);
                 event.getView().close();
                 DmUtil.getInstance().playSoundAtLocation(player.getLocation(), 0.5f, Sound.BLOCK_ANVIL_USE);
                 player.sendMessage(Component.text("Host name: " + hostName).color(NamedTextColor.GOLD));
@@ -101,8 +99,16 @@ public class AnvilListener implements Listener {
     }
 
     private void finishAnvilInvAfterOpening(PrepareAnvilEvent event, Player player, String inputSlotTitle) {
+        if(event == null || player == null || inputSlotTitle == null) {
+            Main.getMainLogger().warning("parameters are null: " + event + " " + player + " " + inputSlotTitle + "!");
+            return;
+        }
         ItemStack output = new ItemStack(Material.GREEN_CONCRETE);
         ItemMeta outputItemMeta = output.getItemMeta();
+        if(outputItemMeta == null) {
+            Main.getMainLogger().warning("outputItemMeta is null!");
+            return;
+        }
         outputItemMeta.displayName(Component.text(tf.getTranslation(player, "anvilOutput")));
         output.setItemMeta(outputItemMeta);
         event.setResult(output);

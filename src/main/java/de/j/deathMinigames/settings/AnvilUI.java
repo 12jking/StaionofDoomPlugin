@@ -1,7 +1,5 @@
 package de.j.deathMinigames.settings;
 
-import de.j.deathMinigames.main.Config;
-import de.j.stationofdoom.main.Main;
 import de.j.stationofdoom.util.Tablist;
 import de.j.stationofdoom.util.translations.TranslationFactory;
 import net.kyori.adventure.text.Component;
@@ -31,11 +29,11 @@ public class AnvilUI implements InventoryHolder {
     }
 
     public void showInventory(Player playerToShowTheInvTo) {
+        if(playerToShowTheInvTo == null) return;
         this.player = playerToShowTheInvTo;
-        if(player == null) return;
-        player.openAnvil(loc, true);
+        playerToShowTheInvTo.openAnvil(loc, true);
         setInputMeta();
-        player.getOpenInventory().getTopInventory().setItem(0, input);
+        playerToShowTheInvTo.getOpenInventory().getTopInventory().setItem(0, input);
     }
 
     @Override
@@ -68,9 +66,9 @@ public class AnvilUI implements InventoryHolder {
         }
         else {
             switch (title) {
-                case SET_HOST_NAME -> inputItemName = Tablist.getHostetBy();
+                case SET_HOST_NAME -> inputItemName = Tablist.getHostedBy();
                 case SET_SERVER_NAME -> inputItemName = Tablist.getServerName();
-                default -> throw new IllegalArgumentException("Title is not known");
+                default -> throw new IllegalArgumentException("Title: " + title + " is not supported");
             }
             if(inputItemName == null) {
                 inputMeta.displayName(Component.text(new TranslationFactory().getTranslation(player, "noNameSet")));

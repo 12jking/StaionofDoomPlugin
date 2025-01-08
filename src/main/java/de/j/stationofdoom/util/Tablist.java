@@ -17,8 +17,8 @@ import java.util.HashMap;
 import java.util.stream.Stream;
 
 public class Tablist {
-    private static String serverName = Bukkit.getServer().getName();
-    private static String hostetBy = null;
+    private volatile static String serverName = Bukkit.getServer().getName();
+    private volatile static String hostedBy = null;
 
     private static Scoreboard scoreboard;
     public static HashMap<Player, String> rank;
@@ -174,14 +174,18 @@ public class Tablist {
         }
     }
 
-    public static void setHostetBy(String hostetBy) {
-        Tablist.hostetBy = hostetBy;
-        if(Config.getInstance().getHostedBy() == null || !Config.getInstance().getHostedBy().equals(hostetBy)) {
-            Config.getInstance().setHostedBy(hostetBy);
+    public static void setHostedBy(String hostedBy) {
+        if(hostedBy == null) {
+            Main.getMainLogger().warning("Hostet by is null");
+            return;
+        }
+        Tablist.hostedBy = hostedBy;
+        if(Config.getInstance().getHostedBy() == null || !Config.getInstance().getHostedBy().equals(hostedBy)) {
+            Config.getInstance().setHostedBy(hostedBy);
         }
     }
 
-    public static String getHostetBy() {
-        return hostetBy;
+    public static String getHostedBy() {
+        return hostedBy;
     }
 }

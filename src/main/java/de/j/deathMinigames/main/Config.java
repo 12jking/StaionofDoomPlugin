@@ -120,7 +120,7 @@ public class Config {
                 Tablist.setServerName(config.getString("Tablist.ServerName"));
             }
             if(config.contains("Tablist.HostetBy")) {
-                Tablist.setHostetBy(config.getString("Tablist.HostetBy"));
+                Tablist.setHostedBy(config.getString("Tablist.HostetBy"));
             }
         }
     }
