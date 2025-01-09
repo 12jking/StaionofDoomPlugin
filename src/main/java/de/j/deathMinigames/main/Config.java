@@ -322,6 +322,10 @@ public class Config {
     }
 
     public synchronized void setServerName(String serverName) {
+        if(serverName == null) {
+            Main.getMainLogger().warning("ServerName is null!");
+            return;
+        }
         if(!Main.getPlugin().getConfig().contains("Tablist.ServerName")) {
             Main.getPlugin().getConfig().set("Tablist.ServerName", serverName);
             Main.getPlugin().saveConfig();
