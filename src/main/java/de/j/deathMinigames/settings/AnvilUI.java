@@ -32,7 +32,7 @@ public class AnvilUI implements InventoryHolder {
         if(playerToShowTheInvTo == null) return;
         this.player = playerToShowTheInvTo;
         playerToShowTheInvTo.openAnvil(loc, true);
-        setInputMeta();
+        setInputMeta(playerToShowTheInvTo);
         playerToShowTheInvTo.getOpenInventory().getTopInventory().setItem(0, input);
     }
 
@@ -58,7 +58,7 @@ public class AnvilUI implements InventoryHolder {
         return loc.getBlockX() == this.loc.getBlockX() && loc.getBlockZ() == this.loc.getBlockZ();
     }
 
-    private void setInputMeta() {
+    private void setInputMeta(Player player) {
         ItemMeta inputMeta = input.getItemMeta();
         String inputItemName = null;
         if(player == null) {

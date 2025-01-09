@@ -45,12 +45,12 @@ public class AnvilListener implements Listener {
         }
         String renameText = anvilView.getRenameText();
         if(MainMenu.getSetHost().compareLocIDTo(loc)) {
-            finishAnvilInvAfterOpening(event, player, hostName);
+            finishAnvilInvAfterOpening(event, player);
             if(renameText == null) return;
             hostName = renameText;
         }
         else if(MainMenu.getSetServerName().compareLocIDTo(loc)) {
-            finishAnvilInvAfterOpening(event, player, serverName);
+            finishAnvilInvAfterOpening(event, player);
             if(renameText == null) return;
             serverName = renameText;
         }
@@ -98,9 +98,9 @@ public class AnvilListener implements Listener {
         }
     }
 
-    private void finishAnvilInvAfterOpening(PrepareAnvilEvent event, Player player, String inputSlotTitle) {
-        if(event == null || player == null || inputSlotTitle == null) {
-            Main.getMainLogger().warning("parameters are null: " + event + " " + player + " " + inputSlotTitle + "!");
+    private void finishAnvilInvAfterOpening(PrepareAnvilEvent event, Player player) {
+        if(event == null || player == null) {
+            Main.getMainLogger().warning("parameters are null: " + event + " " + player + "!");
             return;
         }
         ItemStack output = new ItemStack(Material.GREEN_CONCRETE);

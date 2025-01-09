@@ -116,11 +116,11 @@ public class Config {
         }
         //Tablist
         if(config.contains("Tablist")) {
-            if(config.contains("Tablist.ServerName")) {
+            if(config.contains("Tablist.ServerName") && config.get("Tablist.ServerName") != null) {
                 Tablist.setServerName(config.getString("Tablist.ServerName"));
             }
-            if(config.contains("Tablist.HostetBy")) {
-                Tablist.setHostedBy(config.getString("Tablist.HostetBy"));
+            if(config.contains("Tablist.HostedBy") && config.get("Tablist.HostedBy") != null) {
+                Tablist.setHostedBy(config.getString("Tablist.HostedBy"));
             }
         }
     }
@@ -343,18 +343,18 @@ public class Config {
     }
 
     public synchronized void setHostedBy(String serverName) {
-        if(!Main.getPlugin().getConfig().contains("Tablist.HostetBy") || !Main.getPlugin().getConfig().getString("Tablist.HostetBy").equals(serverName)) {
-            Main.getPlugin().getConfig().set("Tablist.HostetBy", serverName);
+        if(!Main.getPlugin().getConfig().contains("Tablist.HostedBy") || !Main.getPlugin().getConfig().getString("Tablist.HostedBy").equals(serverName)) {
+            Main.getPlugin().getConfig().set("Tablist.HostedBy", serverName);
             Main.getPlugin().saveConfig();
         }
     }
 
     public String getHostedBy() {
-        if(Main.getPlugin().getConfig().contains("Tablist.HostetBy")) {
-            return Main.getPlugin().getConfig().getString("Tablist.HostetBy");
+        if(Main.getPlugin().getConfig().contains("Tablist.HostedBy")) {
+            return Main.getPlugin().getConfig().getString("Tablist.HostedBy");
         }
         else {
-            Main.getMainLogger().warning("HostetBy not found in config!");
+            Main.getMainLogger().warning("HostedBy not found in config!");
             return null;
         }
     }

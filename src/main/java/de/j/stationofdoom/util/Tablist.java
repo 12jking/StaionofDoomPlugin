@@ -176,7 +176,7 @@ public class Tablist {
 
     public static void setHostedBy(String hostedBy) {
         if(hostedBy == null) {
-            Main.getMainLogger().warning("Hostet by is null");
+            Main.getMainLogger().warning("Hosted by is null");
             return;
         }
         Tablist.hostedBy = hostedBy;
