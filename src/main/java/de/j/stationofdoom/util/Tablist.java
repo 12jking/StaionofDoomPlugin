@@ -1,5 +1,6 @@
 package de.j.stationofdoom.util;
 
+import de.j.deathMinigames.main.Config;
 import de.j.stationofdoom.main.Main;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
@@ -16,6 +17,8 @@ import java.util.HashMap;
 import java.util.stream.Stream;
 
 public class Tablist {
+    private volatile static String serverName = Bukkit.getServer().getName();
+    private volatile static String hostedBy = null;
 
     private static Scoreboard scoreboard;
     public static HashMap<Player, String> rank;
@@ -157,5 +160,32 @@ public class Tablist {
         double time = (player.getWorld().getFullTime() / 1000.0 + 6) % 24;
         String formattedTime = String.format("%02d:%02d", (int) time, (int) ((time % 1) * 60));
         return Component.text(formattedTime).color(NamedTextColor.GOLD);
+    }
+
+    public static String getServerName() {
+        return serverName;
+    }
+
+    public static void setServerName(String serverName) {
+        Tablist.serverName = serverName;
+        if(Config.getInstance().getServerName() == null) Config.getInstance().setServerName(serverName);
+        else if(!Config.getInstance().getServerName().equals(serverName)) {
+            Config.getInstance().setServerName(serverName);
+        }
+    }
+
+    public static void setHostedBy(String hostedBy) {
+        if(hostedBy == null) {
+            Main.getMainLogger().warning("Hosted by is null");
+            return;
+        }
+        Tablist.hostedBy = hostedBy;
+        if(Config.getInstance().getHostedBy() == null || !Config.getInstance().getHostedBy().equals(hostedBy)) {
+            Config.getInstance().setHostedBy(hostedBy);
+        }
+    }
+
+    public static String getHostedBy() {
+        return hostedBy;
     }
 }

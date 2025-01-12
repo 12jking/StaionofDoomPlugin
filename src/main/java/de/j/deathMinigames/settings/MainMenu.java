@@ -1,5 +1,6 @@
 package de.j.deathMinigames.settings;
 
+import de.j.stationofdoom.main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -25,7 +26,15 @@ public class MainMenu implements InventoryHolder {
         PARKOUR_START_HEIGHT,
         PARKOUR_LENGTH,
         COST_TO_LOWER_THE_DIFFICULTY,
-        TIME_TO_DECIDE_WHEN_RESPAWNING
+        TIME_TO_DECIDE_WHEN_RESPAWNING,
+        SET_HOST,
+        SET_SERVER_NAME
+    }
+
+    public enum AnvilUIs {
+        SET_SERVER_NAME,
+        SET_HOST_NAME,
+        DEFAULT // usage when the input slot item should have no name
     }
 
     public MainMenu() {
@@ -68,6 +77,14 @@ public class MainMenu implements InventoryHolder {
         return timeToDecideWhenRespawning;
     }
 
+    public synchronized static AnvilUI getSetHost() {
+        return setHost;
+    }
+
+    public synchronized static AnvilUI getSetServerName() {
+        return setServerName;
+    }
+
     private static final GUI introduction = new GUI("Introduction", true, false);
     private static final GUI difficulty = new GUI("Difficulty", true, true);
     private static final GUI usesPlugin = new GUI("UsesPlugin", true, false);
@@ -77,6 +94,8 @@ public class MainMenu implements InventoryHolder {
     private static final GUI parkourLength = new GUI("ParkourLength", false, false);
     private static final GUI costToLowerTheDifficulty = new GUI("CostToLowerTheDifficulty", false, false);
     private static final GUI timeToDecideWhenRespawning = new GUI("TimeToDecideWhenRespawning", false, false);
+    private static final AnvilUI setHost = new AnvilUI(AnvilUIs.SET_HOST_NAME);
+    private static final AnvilUI setServerName = new AnvilUI(AnvilUIs.SET_SERVER_NAME);
 
     /**
      * Opens the main menu for the given player, where the player can
@@ -108,6 +127,8 @@ public class MainMenu implements InventoryHolder {
         addClickableItemStack("Introduction", Material.GREEN_CONCRETE, 1, 1);
         addClickableItemStack("UsesPlugin", Material.GREEN_CONCRETE, 1, 2);
         addClickableItemStack("Difficulty", Material.RED_CONCRETE, 1, 3);
+        addClickableItemStack("SetHost", Material.BOOK, 1, 4);
+        addClickableItemStack("SetServerName", Material.BOOK, 1, 5);
     }
 
     /**

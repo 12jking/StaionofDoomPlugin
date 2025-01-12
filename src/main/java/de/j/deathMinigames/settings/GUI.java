@@ -59,7 +59,6 @@ public class GUI implements InventoryHolder {
             ItemStack head = new ItemStack(Material.PLAYER_HEAD, 1);
             SkullMeta skullMeta = (SkullMeta) head.getItemMeta();
             skullMeta.setOwnerProfile(Bukkit.createProfile(playerData.getUUID()));
-            Main.getMainLogger().info("Skull has owner: " + skullMeta.hasOwner());
             skullMeta.displayName(Component.text(playerData.getName()));
             head.setItemMeta(skullMeta);
 
