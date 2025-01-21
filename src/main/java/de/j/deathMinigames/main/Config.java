@@ -89,7 +89,6 @@ public class Config {
         boolean setUp = true;
         if(config.contains("ParkourStartHeight")) {
             setParkourStartHeight(config.getInt("ParkourStartHeight"));
-            if(config.getInt("ParkourStartHeight") == configParkourStartHeightDefault) setUp = false;
         }
         else {
             setParkourStartHeight(configParkourStartHeightDefault);
@@ -97,7 +96,6 @@ public class Config {
         }
         if(config.contains("ParkourLength")) {
             setParkourLength(config.getInt("ParkourLength"));
-            if(config.getInt("ParkourLength") == configParkourLengthDefault) setUp = false;
         }
         else {
             setParkourLength(configParkourLengthDefault);
@@ -105,7 +103,6 @@ public class Config {
         }
         if(config.contains("CostToLowerTheDifficulty")) {
             setCostToLowerTheDifficulty(config.getInt("CostToLowerTheDifficulty"));
-            if(config.getInt("CostToLowerTheDifficulty") == configCostToLowerTheDifficultyDefault) setUp = false;
         }
         else {
             setCostToLowerTheDifficulty(configCostToLowerTheDifficultyDefault);
@@ -113,7 +110,6 @@ public class Config {
         }
         if(config.contains("TimeToDecideWhenRespawning")) {
             setTimeToDecideWhenRespawning(config.getInt("TimeToDecideWhenRespawning"));
-            if(config.getInt("TimeToDecideWhenRespawning") == configTimeToDecideWhenRespawningDefault) setUp = false;
         }
         else {
             setTimeToDecideWhenRespawning(configTimeToDecideWhenRespawningDefault);
