@@ -8,6 +8,8 @@ import de.j.deathMinigames.database.Database;
 import de.j.deathMinigames.main.HandlePlayers;
 import de.j.deathMinigames.main.InitWaitingListLocationOnJoin;
 import de.j.stationofdoom.cmd.*;
+import de.j.stationofdoom.crafting.DebugStick;
+import de.j.stationofdoom.enchants.CustomEnchants;
 import de.j.stationofdoom.enchants.FlightEvents;
 import de.j.stationofdoom.enchants.FurnaceEvents;
 import de.j.stationofdoom.enchants.TelepathyEvents;
@@ -112,6 +114,8 @@ public final class Main extends JavaPlugin {
         pluginManager.registerEvents(new InitWaitingListLocationOnJoin(), this);
         pluginManager.registerEvents(new LeaveListener(), this);
         pluginManager.registerEvents(new AnvilListener(), this);
+
+        getServer().addRecipe(new DebugStick());
 
         //CustomEnchants.register(); -> see custom enchants class for more info
 
