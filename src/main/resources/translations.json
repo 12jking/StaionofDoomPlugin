@@ -83,7 +83,8 @@
       "somethingWentWrong": "Etwas ist schief gelaufen",
       "invalidDifficulty": "Die Schwierigkeit muss zwischen 0 und 10 sein",
       "anvilOutput": "Klicke hier um zu bestätigen",
-      "noNameSet": "Kein Name gesetzt"
+      "noNameSet": "Kein Name gesetzt",
+      "enchantNotEnabled": "Diese Verzauberung ist auf diesem Server nicht aktiviert."
     }
   ],
   "en-US": [
@@ -170,7 +171,8 @@
       "somethingWentWrong": "Something went wrong",
       "invalidDifficulty": "The difficulty has to be between 0 and 10",
       "anvilOutput": "Click here to accept",
-      "noNameSet": "No name set"
+      "noNameSet": "No name set",
+      "enchantNotEnabled": "This enchantment is currently not activated."
     }
   ]
 }

@@ -16,23 +16,18 @@ public class TelepathyEvents implements Listener {
     
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
+        if(!CustomEnchantsEnum.TELEPATHY.isEnabled()) return;
         Player player = event.getPlayer();
-        if (player.getInventory().getItemInMainHand() == null)
-            return;
-        if (!CustomEnchants.checkEnchant(player.getInventory().getItemInMainHand(), CustomEnchantsEnum.TELEPATHY))
-            return;
-        if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
-            return;
-        if (player.getInventory().firstEmpty() == -1)
-            return;
-        if (event.getBlock().getState() instanceof Container && event.getBlock().getType() == Material.SHULKER_BOX)
-            return;
+        if (player.getInventory().getItemInMainHand() == null) return;
+        if (!CustomEnchants.checkEnchant(player.getInventory().getItemInMainHand(), CustomEnchantsEnum.TELEPATHY)) return;
+        if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) return;
+        if (player.getInventory().firstEmpty() == -1) return;
+        if (event.getBlock().getState() instanceof Container && event.getBlock().getType() == Material.SHULKER_BOX) return;
         
         event.setDropItems(false);
         Block block = event.getBlock();
         Collection<ItemStack> drops = block.getDrops(player.getInventory().getItemInMainHand());
-        if (drops.isEmpty())
-            return;
+        if (drops.isEmpty()) return;
         player.getInventory().addItem(drops.iterator().next());
     }
 }

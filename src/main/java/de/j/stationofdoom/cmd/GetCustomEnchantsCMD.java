@@ -31,6 +31,10 @@ public class GetCustomEnchantsCMD implements BasicCommand {
             MiniMessage mm = MiniMessage.miniMessage();
             switch (args[0].toLowerCase()) {
                 case "telepathy" -> {
+                    if(!CustomEnchantsEnum.TELEPATHY.isEnabled()) {
+                        player.sendMessage(Component.text(translations.getTranslation(player, "enchantNotEnabled")).color(NamedTextColor.RED));
+                        return;
+                    }
                     player.sendMessage(mm.deserialize(translations.getTranslation(player, "BuyCustomEnchant", "<red>", "<aqua>", "Telepathy", "<red>", "<bold>", CustomEnchantsEnum.TELEPATHY.getPrice(), "<reset>", "<red>")));
                     Component f = Component
                             .text(translations.getTranslation(player, "ClickThisMessage"))
@@ -39,6 +43,10 @@ public class GetCustomEnchantsCMD implements BasicCommand {
                     player.sendMessage(f);
                 }
                 case "flight" -> {
+                    if(!CustomEnchantsEnum.FLIGHT.isEnabled()) {
+                        player.sendMessage(Component.text(translations.getTranslation(player, "enchantNotEnabled")).color(NamedTextColor.RED));
+                        return;
+                    }
                     player.sendMessage(mm.deserialize(translations.getTranslation(player, "BuyCustomEnchant", "<red>", "<aqua>", "Flight", "<red>", "<bold>", CustomEnchantsEnum.FLIGHT.getPrice(), "<reset>", "<red>")));
                     Component f = Component
                             .text(translations.getTranslation(player, "ClickThisMessage"))
@@ -47,6 +55,10 @@ public class GetCustomEnchantsCMD implements BasicCommand {
                     player.sendMessage(f);
                 }
                 case "furnace" -> {
+                    if(!CustomEnchantsEnum.FURNACE.isEnabled()) {
+                        player.sendMessage(Component.text(translations.getTranslation(player, "enchantNotEnabled")).color(NamedTextColor.RED));
+                        return;
+                    }
                     player.sendMessage(mm.deserialize(translations.getTranslation(player, "BuyCustomEnchant", "<red>", "<aqua>", "Furnace", "<red>", "<bold>", CustomEnchantsEnum.FURNACE.getPrice(), "<reset>", "<red>")));
                     Component f = Component
                             .text(translations.getTranslation(player, "ClickThisMessage"))
@@ -60,6 +72,10 @@ public class GetCustomEnchantsCMD implements BasicCommand {
         } else if (args.length == 2) {
             switch (args[0].toLowerCase()) {
                 case "telepathy":
+                    if(!CustomEnchantsEnum.TELEPATHY.isEnabled()) {
+                        player.sendMessage(Component.text(translations.getTranslation(player, "enchantNotEnabled")).color(NamedTextColor.RED));
+                        return;
+                    }
                     if (args[1].equalsIgnoreCase("confirm")) {
                         Inventory inventory = player.getInventory();
                         if (inventory.contains(Material.DIAMOND)) {
@@ -88,6 +104,10 @@ public class GetCustomEnchantsCMD implements BasicCommand {
                     }
 
                 case "flight":
+                    if(!CustomEnchantsEnum.FLIGHT.isEnabled()) {
+                        player.sendMessage(Component.text(translations.getTranslation(player, "enchantNotEnabled")).color(NamedTextColor.RED));
+                        return;
+                    }
                     if (args[1].equalsIgnoreCase("confirm")) {
                         Inventory inventory = player.getInventory();
                         if (inventory.contains(Material.DIAMOND)) {
@@ -114,6 +134,10 @@ public class GetCustomEnchantsCMD implements BasicCommand {
                     }
 
                 case "furnace":
+                    if(!CustomEnchantsEnum.FURNACE.isEnabled()) {
+                        player.sendMessage(Component.text(translations.getTranslation(player, "enchantNotEnabled")).color(NamedTextColor.RED));
+                        return;
+                    }
                     if (args[1].equalsIgnoreCase("confirm")) {
                         Inventory inventory = player.getInventory();
                         if (inventory.contains(Material.DIAMOND)) {
@@ -154,9 +178,15 @@ public class GetCustomEnchantsCMD implements BasicCommand {
     public @NotNull Collection<String> suggest(@NotNull CommandSourceStack commandSourceStack, @NotNull String[] args) {
         Collection<String> suggestions = new ArrayList<>();
         if (args.length == 0) {
-            suggestions.add("telepathy");
-            suggestions.add("flight");
-            suggestions.add("furnace");
+            if(CustomEnchantsEnum.TELEPATHY.isEnabled()) {
+                suggestions.add("telepathy");
+            }
+            if(CustomEnchantsEnum.FLIGHT.isEnabled()) {
+                suggestions.add("flight");
+            }
+            if(CustomEnchantsEnum.FURNACE.isEnabled()) {
+                suggestions.add("furnace");
+            }
         }
         return suggestions;
     }

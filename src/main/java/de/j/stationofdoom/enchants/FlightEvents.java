@@ -1,5 +1,6 @@
 package de.j.stationofdoom.enchants;
 
+import de.j.stationofdoom.main.Main;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,6 +12,7 @@ public class FlightEvents implements Listener {
 
     @EventHandler
     public void onHit(EntityDamageByEntityEvent event) {
+        if(!CustomEnchantsEnum.FLIGHT.isEnabled()) return;
         if (!(event.getDamager() instanceof Player)) return;
         Player player = (Player) event.getDamager();
         if (!player.getInventory().getItemInMainHand().hasItemMeta()) return;

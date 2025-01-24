@@ -16,12 +16,14 @@ public enum CustomEnchantsEnum {
     private final Translation loreName;
     private final int price;
     private final TranslationFactory tf;
+    private boolean enabled;
 
     CustomEnchantsEnum(String name, Translation loreName, int price) {
         this.name = name;
         this.loreName = loreName;
         this.price = price;
         tf = new TranslationFactory();
+        this.enabled = true;
     }
 
     public String getName() {
@@ -34,5 +36,13 @@ public enum CustomEnchantsEnum {
 
     public int getPrice() {
         return price;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public boolean isEnabled() {
+        return this.enabled;
     }
 }

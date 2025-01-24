@@ -40,13 +40,11 @@ public class FurnaceEvents implements Listener {
 
     @EventHandler
     public void onFurnaceEvent(BlockBreakEvent event) {
+        if(!CustomEnchantsEnum.FURNACE.isEnabled()) return;
         Player player = event.getPlayer();
-        if (!pickaxes.contains(player.getInventory().getItemInMainHand().getType()))
-            return;
-        if (!CustomEnchants.checkEnchant(player.getInventory().getItemInMainHand(), CustomEnchantsEnum.FURNACE))
-            return;
-        if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
-            return;
+        if (!pickaxes.contains(player.getInventory().getItemInMainHand().getType())) return;
+        if (!CustomEnchants.checkEnchant(player.getInventory().getItemInMainHand(), CustomEnchantsEnum.FURNACE)) return;
+        if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) return;
         Block block = event.getBlock();
         if (ores.contains(block.getType())) {
             event.setDropItems(false);
